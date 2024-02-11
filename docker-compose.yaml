@@ -4,9 +4,9 @@ services:
   php:
     build: .
     ports:
-      - 80:80
+      - "80:80"
     volumes:
-      - ./app:/var/www/html/
+      - "./app:/var/www/html/"
     links:
       - db
 
@@ -18,32 +18,18 @@ services:
       MYSQL_ROOT_PASSWORD: example
     volumes:
       - database:/var/lib/mysql
-    expose:
-      - 3306
-    networks:
-      - server
-
-  # adminer:
-  #   image: adminer
-  #   restart: always
-  #   ports:
-  #     - 8080:8080
+    ports:
+      - "3306:3306"
 
   phpmyadmin:
     image: phpmyadmin
     restart: always
     ports:
-      - 8080:80
+      - "8080:80"
     environment:
       - PMA_ARBITRARY=1
-    networks:
-      - server
     depends_on:
       - db
 
-
 volumes:
-  database: 
-
-networks:
-  server:
+  database:
